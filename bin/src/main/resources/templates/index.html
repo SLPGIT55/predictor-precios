@@ -1,25 +1,47 @@
-<h1>Catálogo de Productos</h1>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Predictor de Precios | Inmobiliaria</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .predictor-container { max-width: 600px; margin-top: 100px; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .btn-predict { background-color: #007bff; color: white; width: 100%; font-weight: bold; }
+    </style>
+</head>
+<body>
 
-<p><a href="/productos/nuevo">Añadir Nuevo Producto</a></p>
+<div class="container d-flex justify-content-center">
+    <div class="predictor-container">
+        <h2 class="text-center mb-4">Predice el Precio de tu Vivienda</h2>
+        <p class="text-muted text-center">Introduce los datos para conectar con el mercado actual.</p>
 
-```
+        <form action="/predecir" method="post">
+            <div class="mb-3">
+                <label for="localidad" class="form-label">Localidad o Código Postal</label>
+                <input type="text" class="form-control" id="localidad" name="localidad" placeholder="Ej: Madrid, 28001" required>
+            </div>
 
-### 🏃 Paso Final: Prueba de Creación
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="metros" class="form-label">Metros Cuadrados</label>
+                    <input type="number" class="form-control" id="metros" name="metros" placeholder="M²" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="habitaciones" class="form-label">Habitaciones</label>
+                    <input type="number" class="form-control" id="habitaciones" name="habitaciones" placeholder="Nº">
+                </div>
+            </div>
 
-1.  **Reinicia tu aplicación Spring Boot.**
-2.  **Abre `http://localhost:8080/`**
-3.  Haz clic en el enlace **"Añadir Nuevo Producto"**.
-4.  Rellena el formulario (ej: Nombre: "Webcam HD", Precio: 55.50).
-5.  Haz clic en **"Guardar Producto"**.
-6.  Si todo funciona, serás **redirigido** a la página principal, ¡y verás tu nuevo producto listado!
+            <button type="submit" class="btn btn-predict">Conectar con API y Predecir</button>
+        </form>
 
----
+        <div th:if="${resultado}" class="mt-4 alert alert-success text-center">
+            <h4 th:text="${resultado}"></h4>
+        </div>
+    </div>
+</div>
 
-¡Hemos completado la funcionalidad de **Creación** y **Lectura**!
-
-**Ahora, el siguiente paso lógico es añadir la capacidad de:**
-
-* **Actualizar (U):** Modificar un producto existente.
-* **Borrar (D):** Eliminar un producto.
-
-¿Quieres que continuemos con la funcionalidad de **Borrar (Delete)**, que suele ser la más sencilla después de la creación?
+</body>
+</html>
